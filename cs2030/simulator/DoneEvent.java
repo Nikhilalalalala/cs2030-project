@@ -1,3 +1,4 @@
+package cs2030.simulator;
 import java.util.Optional;
 /**
  * This class describes the behaviour of the event when a customer is done being served

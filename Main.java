@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import cs2030.simulator.*;
 
 class Main {
     

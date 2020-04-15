@@ -1,3 +1,4 @@
+package cs2030.simulator;
 /**
  * This Server class aids in serving of customers as the customers arrive in
  * their order 

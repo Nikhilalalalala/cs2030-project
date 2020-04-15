@@ -1,3 +1,4 @@
+package cs2030.simulator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -7,7 +8,7 @@ import java.util.Optional;
  * This class manages the behaviour of the entire collection of serves available
  * 
  */
-class GroupServers {
+public class GroupServers {
     private List<Server> groupOfServers;
     private static int totalLeaves;
     private static int totalServed;
@@ -17,7 +18,7 @@ class GroupServers {
      * Constructor of GroupServers where a group of servers is being modelled
      * @param numOfServers the total number of servers
      */
-    GroupServers(int numOfServers) {
+    public GroupServers(int numOfServers) {
         List<Server> group = new ArrayList<>(numOfServers);
         IntStream.range(0, numOfServers)
             .forEach(id -> {

@@ -1,9 +1,10 @@
+package cs2030.simulator;
 import java.util.Optional;
 
 /**
  * This class describes the behaviour of the event when a customer arrives
  */
-class ArriveEvent extends Event {
+public class ArriveEvent extends Event {
     /**
      * Constructor of ArriveEvent 
      * The time associated with this event is the arrival time of the customer

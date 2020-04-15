@@ -1,10 +1,11 @@
+package cs2030.simulator;
 import java.util.Optional;
 
 /** 
  * Event class models the behaviour of events 
  * events have a customer, server, the state and the time associated with it
  */
-abstract class Event implements Comparable<Event> {
+public abstract class Event implements Comparable<Event> {
     protected Customer customerInvolved;
     protected Optional<Server> server;
     protected int eventState;

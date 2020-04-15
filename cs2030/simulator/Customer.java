@@ -1,8 +1,10 @@
+package cs2030.simulator;
+
 /** 
  * This class contains the attributes and the methods of a Customer
  * 
  */
-class Customer implements Comparable<Customer>{
+public class Customer implements Comparable<Customer>{
 	private final int customerID;
   private static int numOfCustomers = 0; 
   private final double arrivalTime;
