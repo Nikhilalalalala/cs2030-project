@@ -1,7 +1,5 @@
-import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.List;
-import java.util.Optional;
 import java.util.ArrayList;
 import cs2030.simulator.*;
 
@@ -12,7 +10,7 @@ class Main {
         int numOfServers = sc.nextInt();
     
         List<Double> listOfCustomer = new ArrayList<>();
-        
+
         while(sc.hasNext()) {
             listOfCustomer.add(sc.nextDouble());
         }
