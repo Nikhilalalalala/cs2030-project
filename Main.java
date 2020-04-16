@@ -1,23 +1,20 @@
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-import cs2030.simulator.*;
+import cs2030.simulator.Manage;
 
 class Main {
-    
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int rngSeed = sc.nextInt();
         int numOfServers = sc.nextInt();
-    
-        List<Double> listOfCustomer = new ArrayList<>();
+        int maxQueueLength = sc.nextInt();
+        int numOfCustomers = sc.nextInt();
+        double arrivalrate = sc.nextDouble();
+        double servicerate = sc.nextDouble();
 
-        while(sc.hasNext()) {
-            listOfCustomer.add(sc.nextDouble());
-        }
+        Manage.run(rngSeed, numOfServers, maxQueueLength, numOfCustomers, arrivalrate, servicerate);
 
-        Manage.run(numOfServers, listOfCustomer);
-        
         sc.close();
-        
+
     }
 }
