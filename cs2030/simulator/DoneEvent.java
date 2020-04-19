@@ -19,6 +19,7 @@ class DoneEvent extends Event {
     DoneEvent(Customer customer, Optional<Server> server, double time) {
         super(customer, server);
         this.time = time;
+        this.isDiscarded = false; //no DoneEvents are ever discarded
     }
 
     /**
@@ -29,13 +30,23 @@ class DoneEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
+        
+        System.out.println(this);
+        
         GroupServers.addTotalServed();
+
+        //determining if the server needs rest
+        if (group.deservesRest()) {
+            double restingDuration = group.createRestingDuration();
+            server.ifPresent(x -> x.setNextServiceTime(restingDuration));
+        }
+
         return Optional.empty();
     }
 
     @Override
     public String toString() {
         return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " done serving by "
-                + this.getServer().get().getServerID();
+                + this.getServer().get().toString();
     }
 }

@@ -12,6 +12,8 @@ public abstract class Event implements Comparable<Event> {
     protected int eventState;
     protected double time;
 
+    protected boolean isDiscarded;
+
     public static final double DURATION = 1.0;
 
     /**
@@ -26,6 +28,10 @@ public abstract class Event implements Comparable<Event> {
     Event(Customer customer, Optional<Server> server) {
         this.customerInvolved = customer;
         this.server = server;
+    }
+
+    public boolean validEvent() {
+        return !this.isDiscarded;
     }
 
     /**

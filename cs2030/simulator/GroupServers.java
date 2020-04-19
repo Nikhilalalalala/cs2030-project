@@ -14,7 +14,8 @@ public class GroupServers {
     private static int totalLeaves;
     private static int totalServed;
     private static double totalWaitingTime;
-    private RandomGenerator serviceRateGenerator;
+    private RandomGenerator randomGenerator;
+    private double restingProbability;
 
     /**
      * Constructor of GroupServers where a group of servers is being modelled
@@ -29,14 +30,15 @@ public class GroupServers {
      * = group; }
      */
 
-    public GroupServers(int numOfServers, RandomGenerator rng) {
+    public GroupServers(int numOfServers, int maxQueueInServer, RandomGenerator rng, double restingProbability) {
         List<Server> group = new ArrayList<>(numOfServers);
         IntStream.range(0, numOfServers).forEach(id -> {
-            Server creation = new Server();
+            Server creation = new Server(maxQueueInServer);
             group.add(creation);
         });
         this.groupOfServers = group;
-        this.serviceRateGenerator = rng;
+        this.randomGenerator = rng;
+        this.restingProbability = restingProbability;
     }
 
     /**
@@ -82,7 +84,15 @@ public class GroupServers {
     }
 
     public double createServiceDuration() {
-        return this.serviceRateGenerator.genServiceTime();
+        return this.randomGenerator.genServiceTime();
+    }
+
+    public boolean deservesRest() {
+        return this.randomGenerator.genRandomRest() < this.restingProbability;
+    }
+
+    public double createRestingDuration() {
+        return this.randomGenerator.genRestPeriod();
     }
 
     /**
@@ -116,6 +126,7 @@ public class GroupServers {
      * @return average waiting time for customers who have been served
      */
     public static double getAverageWaitingTime() {
-        return GroupServers.getTotalWaitingTime() / GroupServers.getTotalServed();
+        if (GroupServers.getTotalWaitingTime() == 0 || GroupServers.getTotalServed() == 0) return 0;
+        else return GroupServers.getTotalWaitingTime() / GroupServers.getTotalServed();
     }
 }

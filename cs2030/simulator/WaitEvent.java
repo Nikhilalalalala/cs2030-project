@@ -20,6 +20,7 @@ class WaitEvent extends Event {
     WaitEvent(Customer customer, Optional<Server> server, double time) {
         super(customer, server);
         this.time = time;
+        this.isDiscarded = false;
     }
 
     /**
@@ -31,25 +32,20 @@ class WaitEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
-        // time at which server finishes current service
-        double finishServiceAt = this.getServer().get().getNextServiceTime();
-        // waiting time incurred by customer
-        double waitingTime = finishServiceAt - this.getCustomerInvolved().getArrivalTime();
-
-        // updating stats
-        GroupServers.addTotalWaitingTime(waitingTime);
+    
+        System.out.println(this);
 
         // update queue of server
         this.getServer().get().addCustomerToQueue();
 
-        Event newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), finishServiceAt, true);
+        Event newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, true);
         return Optional.of(newEvent);
     }
 
     @Override
     public String toString() {
         return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " waits to be served by "
-                + this.getServer().get().getServerID();
+                + this.getServer().get().toString();
     }
 
 }

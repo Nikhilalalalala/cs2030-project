@@ -11,8 +11,10 @@ class Main {
         int numOfCustomers = sc.nextInt();
         double arrivalrate = sc.nextDouble();
         double servicerate = sc.nextDouble();
+        double restingrate = sc.nextDouble();
+        double restingProbability = sc.nextDouble();
 
-        Manage.run(rngSeed, numOfServers, maxQueueLength, numOfCustomers, arrivalrate, servicerate);
+        Manage.run(rngSeed, numOfServers, maxQueueLength, numOfCustomers, arrivalrate, servicerate, restingrate, restingProbability);
 
         sc.close();
 

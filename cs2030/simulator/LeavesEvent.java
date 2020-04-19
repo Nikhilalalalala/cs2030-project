@@ -16,6 +16,7 @@ class LeavesEvent extends Event {
     LeavesEvent(Customer customer) {
         super(customer, Optional.empty());
         this.time = customer.getArrivalTime();
+        this.isDiscarded = false; //no LeaveEvents are ever discarded
     }
 
     /**
@@ -26,6 +27,8 @@ class LeavesEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
+        System.out.println(this);
+        
         GroupServers.addTotalLeaves();
         return Optional.empty();
     }

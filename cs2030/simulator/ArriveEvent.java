@@ -15,6 +15,7 @@ public class ArriveEvent extends Event {
     ArriveEvent(Customer customer) {
         super(customer, Optional.empty());
         this.time = this.getCustomerInvolved().getArrivalTime();
+        this.isDiscarded = false; // no arriveevents are ever discarded
     }
 
     /**
@@ -28,6 +29,8 @@ public class ArriveEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
+        System.out.println(this);
+
         Event newEvent;
         double arrivalTime = this.getCustomerInvolved().getArrivalTime();
         Optional<Server> server = group.findNextAvailableServerToServe(arrivalTime);

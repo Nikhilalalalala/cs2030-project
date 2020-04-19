@@ -12,17 +12,16 @@ class Server implements Comparable<Server> {
 
     public int maxQueueCapacity, numOfPeopleInQueue;
 
-    public int totalWaits, totalServed;
-    public double totalWaitingTime;
-
     /**
      * A Server has a unique ID and only 1 waiting customer atmost at any given time
      * 
      */
-    Server() {
+    Server(int m) {
         Server.countOfServers++;
         this.ServerID = Server.countOfServers;
         this.nextServiceTime = 0;
+        this.numOfPeopleInQueue = 0;
+        this.maxQueueCapacity = m;
     }
 
     /**
@@ -77,11 +76,8 @@ class Server implements Comparable<Server> {
         return this.nextServiceTime;
     }
 
-    public int getTotalServed() {
-        return this.totalServed;
-    }
-
-    public double getTotalWaitingTime() {
-        return this.totalWaitingTime;
+    @Override
+    public String toString() {
+        return "server " + this.ServerID;
     }
 }

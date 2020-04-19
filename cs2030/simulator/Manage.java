@@ -17,38 +17,14 @@ public class Manage {
      * @param customerArrivalTimes timings each customer arrives
      */
 
-    /*
-     * public static void run (int numOfServers, List<Double> customerArrivalTimes)
-     * {
-     * 
-     * GroupServers groupServers = new GroupServers(numOfServers);
-     * 
-     * List<Customer> listOfCustomer = new ArrayList<>(); for (Double time :
-     * customerArrivalTimes) { listOfCustomer.add(new Customer(time)); }
-     * 
-     * PriorityQueue<Event> pq = new PriorityQueue<>();
-     * 
-     * for (Customer cust : listOfCustomer) { pq.add(new ArriveEvent(cust)); }
-     * 
-     * while (pq.size() != 0) { Event curr = pq.poll(); System.out.println(curr);
-     * Optional<Event> newEvent = curr.happenEvent(groupServers);
-     * newEvent.ifPresent(x -> pq.add(x));
-     * 
-     * }
-     * 
-     * System.out.println("[" + String.format("%.3f",
-     * GroupServers.getAverageWaitingTime()) + " " + GroupServers.getTotalServed() +
-     * " " + GroupServers.getTotalLeaves() + "]"); }
-     */
-
     public static void run(int rngSeed, int numOfServers, int maxQueueLength, int numOfCustomers, double arrivalrate,
-            double servicerate) {
+            double servicerate, double restingRate, double restingProbability) {
 
         List<Customer> listOfCustomer = new ArrayList<>();
 
-        RandomGenerator rng = new RandomGenerator(rngSeed, arrivalrate, servicerate, 0);
+        RandomGenerator rng = new RandomGenerator(rngSeed, arrivalrate, servicerate, restingRate);
 
-        GroupServers groupServers = new GroupServers(numOfServers, rng);
+        GroupServers groupServers = new GroupServers(numOfServers, maxQueueLength, rng, restingProbability);
 
         double now = 0;
         while (numOfCustomers > 0) {
@@ -63,11 +39,12 @@ public class Manage {
             pq.add(new ArriveEvent(cust));
         }
 
-        while (pq.size() != 0) {
+        while (!pq.isEmpty()) {
             Event curr = pq.poll();
-            System.out.println(curr);
+            // System.out.println(curr);
             Optional<Event> newEvent = curr.happenEvent(groupServers);
-            newEvent.ifPresent(x -> pq.add(x));
+            Optional<Event> proceedingEvent = newEvent.filter(x -> x.validEvent());
+            proceedingEvent.ifPresent(x -> pq.add(x));
 
         }
 
