@@ -15,17 +15,14 @@ class Server implements Comparable<Server> {
     /**
      * A Server has a unique ID and only 1 waiting customer atmost at any given time
      * 
+     * @param maxQueueCapacity the maximum queue capacity of a server
      */
-    Server(int m) {
+    Server(int maxQueueCapacity) {
         Server.countOfServers++;
         this.serverID = Server.countOfServers;
         this.nextServiceTime = 0;
         this.numOfPeopleInQueue = 0;
-        this.maxQueueCapacity = m;
-    }
-
-    Server() {
-        this.serverID = 0; // invalid, never to be used
+        this.maxQueueCapacity = maxQueueCapacity;
     }
 
     /**
@@ -60,25 +57,36 @@ class Server implements Comparable<Server> {
         }
     }
 
+    /**
+     * Returns true if there the maximum queue capacity has not been reached
+     */
     public boolean canWait() {
         return numOfPeopleInQueue < maxQueueCapacity;
     }
 
+    /**
+     * Increments the current queue by one
+     */
     public void addCustomerToQueue() {
-        // System.out.println("added cust to q of " + this);
         this.numOfPeopleInQueue++;
     }
 
+    /**
+     * Decrements the current queue by one
+     */
     public void removeCustomerFromQueue() {
         this.numOfPeopleInQueue--;
-        // assert numOfPeopleInQueue > 0 : "huhhh";
-        // if (numOfPeopleInQueue < 0) numOfPeopleInQueue = 0;
     }
 
     public int getServerID() {
         return this.serverID;
     }
 
+    /**
+     * Gives the next available time for server to serve
+     * 
+     * @return next service time
+     */
     public double getNextServiceTime() {
         return this.nextServiceTime;
     }
@@ -88,10 +96,18 @@ class Server implements Comparable<Server> {
         return "server " + this.serverID;
     }
 
+    /**
+     * Returns false if the server is not self-check
+     */
     public boolean isSelfCheck() {
         return false;
     }
 
+    /**
+     * Gives the number of people in the queue
+     * 
+     * @return number of people in the queue
+     */
     public int getNumOfPeopleInQueue() {
         return numOfPeopleInQueue;
     }

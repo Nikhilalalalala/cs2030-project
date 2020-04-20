@@ -55,6 +55,10 @@ public class Customer implements Comparable<Customer> {
         return String.valueOf(customerID);
     }
 
+    /**
+     * Returns false if the customer is not greedy
+     * @return
+     */
     public boolean isGreedy() {
         return false;
     }

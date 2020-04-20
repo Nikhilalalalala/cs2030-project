@@ -28,6 +28,11 @@ public abstract class Event implements Comparable<Event> {
         this.server = server;
     }
 
+    /**
+     * Determines if the event was valid or not
+     * 
+     * @return boolean value of whether the event is valid or not
+     */
     public boolean validEvent() {
         return !this.isDiscarded;
     }

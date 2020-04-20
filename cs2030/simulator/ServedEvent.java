@@ -14,9 +14,11 @@ class ServedEvent extends Event {
      * Constructor of ServeEvent where the customer is modelled to be served by the
      * server
      * 
-     * @param customer The customer that is being served
-     * @param server   the server serving the customer
-     * @param time     the time the customer starts being served
+     * @param customer   The customer that is being served
+     * @param server     the server serving the customer
+     * @param time       the time the customer starts being served
+     * @param wasWaiting boolean value of whether the customer was waiting before
+     *                   the service
      */
     ServedEvent(Customer customer, Optional<Server> server, double arrivaltime, boolean wasWaiting) {
         super(customer, server);
@@ -28,8 +30,21 @@ class ServedEvent extends Event {
             this.time = this.arrivalTime;
     }
 
-    // for creation of a Serve Event when the arrive time might be different compared to the time the customer is served
-    ServedEvent(Customer customer, Optional<Server> server, double time, double arrivalTime, boolean wasWaiting) {
+    /**
+     * Constructor of ServeEvent where the customer is modelled to be served by the
+     * server To be used when the arrival time of the customer might be different
+     * compared to the time the customer is served
+     * 
+     * @param customer    customer being served
+     * @param server      server serving the customer
+     * @param time        time of service
+     * @param arrivalTime time the customer originally arrived
+     * @param wasWaiting  boolean value of whether the customer was waiting before
+     *                    the service
+     */
+    ServedEvent(Customer customer, Optional<Server> server, double time, double arrivalTime, 
+        boolean wasWaiting) {
+
         super(customer, server);
         this.arrivalTime = arrivalTime;
         this.wasWaiting = wasWaiting;
@@ -48,14 +63,19 @@ class ServedEvent extends Event {
     public Optional<Event> happenEvent(GroupServers group) {
 
         if (this.time < this.server.get().getNextServiceTime()) {
+            
             this.isDiscarded = true;
             Event newEvent;
+            
             if (this.server.filter(x -> x.isSelfCheck()).isPresent()) {
                 Optional<Server> earliestServer = group.findEarliestSelfCheckServer(this.server.get());
-                newEvent = new ServedEvent(this.getCustomerInvolved(), earliestServer, this.time, arrivalTime, wasWaiting);
+                newEvent = new ServedEvent(this.getCustomerInvolved(), earliestServer, this.time, arrivalTime,
+                        wasWaiting);
             } else {
-                newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, arrivalTime, wasWaiting);
+                newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, arrivalTime,
+                        wasWaiting);
             }
+            
             return Optional.of(newEvent);
         }
 

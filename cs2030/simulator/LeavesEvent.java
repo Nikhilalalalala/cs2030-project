@@ -16,7 +16,7 @@ class LeavesEvent extends Event {
     LeavesEvent(Customer customer) {
         super(customer, Optional.empty());
         this.time = customer.getArrivalTime();
-        this.isDiscarded = false; //no LeaveEvents are ever discarded
+        this.isDiscarded = false; // no LeaveEvents are ever discarded
     }
 
     /**

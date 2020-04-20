@@ -38,8 +38,10 @@ class WaitEvent extends Event {
         this.server.get().addCustomerToQueue();
 
         if (this.server.filter(x -> x.isSelfCheck()).isPresent()) {
+
             Optional<Server> earliestServer = group.findEarliestSelfCheckServer(this.server.get());
             newEvent = new ServedEvent(this.getCustomerInvolved(), earliestServer, this.time, true);
+            
         } else {
             newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, true);
         }

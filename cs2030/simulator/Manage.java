@@ -13,37 +13,31 @@ public class Manage {
     /**
      * Runs the simulation and prints the necessary output.
      * 
-     * @param numOfServers         total number of servers
+     * @param numOfServers total number of servers
      * @param customerArrivalTimes timings each customer arrives
      */
 
-    public static void run(
-            int rngSeed, 
-            int numOfServers, 
-            int numOfSelfCheckServers, 
-            int maxQueueLength,
-            int numOfCustomers, 
-            double arrivalrate, 
-            double servicerate, 
-            double restingRate, 
-            double restingProbability,
-            double greedyProbability) {
+    public static void run(int rngSeed, int numOfServers, int numOfSelfCheckServers, int maxQueueLength,
+            int numOfCustomers, double arrivalrate, double servicerate, double restingRate, 
+            double restingProbability, double greedyProbability) {
 
         List<Customer> listOfCustomer = new ArrayList<>();
 
         RandomGenerator rng = new RandomGenerator(rngSeed, arrivalrate, servicerate, restingRate);
 
-        GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, maxQueueLength, rng,
-                restingProbability);
+        GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, maxQueueLength, 
+                rng, restingProbability);
 
         double now = 0;
         while (numOfCustomers > 0) {
+
             if (rng.genCustomerType() < greedyProbability) {
                 listOfCustomer.add(new GreedyCustomer(now));
             } else {
                 listOfCustomer.add(new Customer(now));
             }
             now = now + rng.genInterArrivalTime();
+
             numOfCustomers--;
         }
 
@@ -55,7 +49,6 @@ public class Manage {
 
         while (!pq.isEmpty()) {
             Event curr = pq.poll();
-            // System.out.println(curr);
             Optional<Event> newEvent = curr.happenEvent(groupServers);
             Optional<Event> proceedingEvent = newEvent.filter(x -> x.validEvent());
             proceedingEvent.ifPresent(x -> pq.add(x));

@@ -34,8 +34,11 @@ public class ArriveEvent extends Event {
         Event newEvent;
         double arrivalTime = this.getCustomerInvolved().getArrivalTime();
         Optional<Server> server = group.findNextAvailableServerToServe(arrivalTime);
+
         if (server.isPresent()) {
+
             newEvent = new ServedEvent(this.getCustomerInvolved(), server, arrivalTime, false);
+
         } else {
             // find server for customer to wait at
             Optional<Server> waitAt;
@@ -45,7 +48,7 @@ public class ArriveEvent extends Event {
                 waitAt = group.findNextAvailableServerToWait();
             }
 
-            //allocate the next event
+            // allocate the next event
             if (waitAt.isPresent()) {
                 newEvent = new WaitEvent(this.getCustomerInvolved(), waitAt, arrivalTime);
             } else {
