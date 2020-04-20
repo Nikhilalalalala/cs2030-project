@@ -2,15 +2,13 @@ package cs2030.simulator;
 
 import java.util.Optional;
 
-/**
- * This class describes the behaviour of the event when a customer waits at a
- * server
+/** This class describes the behaviour of the event when a customer waits at a server.
  */
 class WaitEvent extends Event {
 
     /**
      * Constructor of WaitEvent where the customer is modelled to be waiting for the
-     * server to be done with its previous customer
+     * server to be done with its previous customer.
      * 
      * @param customer The customer that waits
      * @param server   the server going to serve the customer
@@ -25,7 +23,7 @@ class WaitEvent extends Event {
 
     /**
      * The customer waits for the server to finish serving the previous customer And
-     * is served immediately after which results in it returning a new ServeEvent
+     * is served immediately after which results in it returning a new ServeEvent.
      * 
      * @param group the group of Servers handling the event
      * @return the Serve Event where the customer is served
@@ -43,7 +41,8 @@ class WaitEvent extends Event {
             newEvent = new ServedEvent(this.getCustomerInvolved(), earliestServer, this.time, true);
             
         } else {
-            newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, true);
+            newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), 
+                this.time, true);
         }
 
         return Optional.of(newEvent);
@@ -51,8 +50,8 @@ class WaitEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " waits to be served by "
-                + this.getServer().get().toString();
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + 
+            " waits to be served by " + this.getServer().get().toString();
     }
 
 }

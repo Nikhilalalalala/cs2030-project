@@ -2,13 +2,11 @@ package cs2030.simulator;
 
 import java.util.Optional;
 
-/**
- * This class describes the behaviour of the event when a customer arrives
+/** This class describes the behaviour of the event when a customer arrives.
  */
 public class ArriveEvent extends Event {
-    /**
-     * Constructor of ArriveEvent The time associated with this event is the arrival
-     * time of the customer
+    
+    /** Constructor of Arrive Event.
      * 
      * @param customer The customer that arrives
      */
@@ -18,11 +16,11 @@ public class ArriveEvent extends Event {
         this.isDiscarded = false; // no arriveevents are ever discarded
     }
 
-    /**
+    /** Processes the event.
      * If there are any vacant server, the a new ServeEvent would be created with
      * this customer and the available server, else it goes on to find any server
-     * that has no waiting people and would create a WaitEvent accordingly. If no
-     * server is found, it would create a LeaveEvent
+     * that has no waiting people and would create a WaitEvent accordingly. 
+     * If no server is found, it would create a LeaveEvent.
      * 
      * @param group the group of Servers handling the event
      * @return the next event depending if the customer waits, is served, or leaves

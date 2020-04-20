@@ -1,8 +1,6 @@
 package cs2030.simulator;
 
-/**
- * This Server class aids in serving of customers as the customers arrive in
- * their order
+/** This Server class aids in serving of customers as the customers arrive in their order.
  */
 class Server implements Comparable<Server> {
 
@@ -10,10 +8,10 @@ class Server implements Comparable<Server> {
     private static int countOfServers;
     protected double nextServiceTime;
 
-    protected int maxQueueCapacity, numOfPeopleInQueue;
+    protected int maxQueueCapacity;
+    protected int numOfPeopleInQueue;
 
-    /**
-     * A Server has a unique ID and only 1 waiting customer atmost at any given time
+    /** A Server has a unique ID and only 1 waiting customer atmost at any given time.
      * 
      * @param maxQueueCapacity the maximum queue capacity of a server
      */
@@ -25,8 +23,7 @@ class Server implements Comparable<Server> {
         this.maxQueueCapacity = maxQueueCapacity;
     }
 
-    /**
-     * To control the next service time the server is able to serve
+    /** To control the next service time the server is able to serve.
      * 
      * @param nextServiceTime the new next service time
      */
@@ -34,8 +31,7 @@ class Server implements Comparable<Server> {
         this.nextServiceTime = this.nextServiceTime + additionalTime;
     }
 
-    /**
-     * Determines if the server is available to serve at the given time
+    /** Determines if the server is available to serve at the given time.
      * 
      * @param time the time to check
      * @return whether the server can serve at that time
@@ -50,29 +46,27 @@ class Server implements Comparable<Server> {
         if (difference == 0) {
             return this.getServerID() - s.getServerID();
         } else {
-            if (difference > 0)
+            if (difference > 0) {
                 return 1;
-            else
+            } else {
                 return -1;
+            }
         }
     }
 
-    /**
-     * Returns true if there the maximum queue capacity has not been reached
+    /** Returns true if there the maximum queue capacity has not been reached.
      */
     public boolean canWait() {
         return numOfPeopleInQueue < maxQueueCapacity;
     }
 
-    /**
-     * Increments the current queue by one
+    /** Increments the current queue by one.
      */
     public void addCustomerToQueue() {
         this.numOfPeopleInQueue++;
     }
 
-    /**
-     * Decrements the current queue by one
+    /** Decrements the current queue by one.
      */
     public void removeCustomerFromQueue() {
         this.numOfPeopleInQueue--;
@@ -82,8 +76,7 @@ class Server implements Comparable<Server> {
         return this.serverID;
     }
 
-    /**
-     * Gives the next available time for server to serve
+    /** Gives the next available time for server to serve.
      * 
      * @return next service time
      */
@@ -96,15 +89,13 @@ class Server implements Comparable<Server> {
         return "server " + this.serverID;
     }
 
-    /**
-     * Returns false if the server is not self-check
+    /** Returns false if the server is not self-check.
      */
     public boolean isSelfCheck() {
         return false;
     }
 
-    /**
-     * Gives the number of people in the queue
+    /** Gives the number of people in the queue.
      * 
      * @return number of people in the queue
      */

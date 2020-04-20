@@ -1,7 +1,6 @@
 package cs2030.simulator;
 
-/**
- * This class contains the attributes and the methods of a Customer
+/** This class contains the attributes and the methods of a Customer.
  * 
  */
 public class Customer implements Comparable<Customer> {
@@ -9,8 +8,7 @@ public class Customer implements Comparable<Customer> {
     protected static int numOfCustomers = 0;
     protected final double arrivalTime;
 
-    /**
-     * Creates a customer with a unique ID and the time of arrival
+    /** Creates a customer with a unique ID and the time of arrival.
      * 
      * @param arrivalTime the time the customer arrives
      */
@@ -32,9 +30,7 @@ public class Customer implements Comparable<Customer> {
         return numOfCustomers;
     }
 
-    /**
-     * Compares two customers first based on their arrival Time and then their ID
-     * number
+    /** Compares two customers first based on their arrival Time and then their ID.
      * 
      */
     @Override
@@ -43,10 +39,11 @@ public class Customer implements Comparable<Customer> {
         if (difference == 0) {
             return this.getID() - cust.getID();
         } else {
-            if (difference > 0)
+            if (difference > 0) {
                 return 1;
-            else
+            } else {
                 return -1;
+            }
         }
     }
 
@@ -55,9 +52,8 @@ public class Customer implements Comparable<Customer> {
         return String.valueOf(customerID);
     }
 
-    /**
-     * Returns false if the customer is not greedy
-     * @return
+    /** Returns false if the customer is not greedy.
+     * @return true if the customer is greedy, false otherwise
      */
     public boolean isGreedy() {
         return false;

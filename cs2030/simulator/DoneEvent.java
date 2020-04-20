@@ -3,14 +3,12 @@ package cs2030.simulator;
 import java.util.Optional;
 
 /**
- * This class describes the behaviour of the event when a customer is done being
- * served
+ * This class describes the behaviour of the event when a customer is done being served.
  */
 class DoneEvent extends Event {
 
     /**
-     * Constructor of DoneEvent where the server is modelled to be done serving the
-     * customer
+     * Constructor of DoneEvent where the server is modelled to be done serving the customer.
      * 
      * @param customer the customer that is done being served
      * @param server   the server that finished serving the customer
@@ -22,8 +20,7 @@ class DoneEvent extends Event {
         this.isDiscarded = false; // no DoneEvents are ever discarded
     }
 
-    /**
-     * The customer leaves
+    /** The customer leaves after a service and the decision is made if a server gets to rest.
      * 
      * @param group the group of Servers handling the event
      * @return an empty event
@@ -45,7 +42,7 @@ class DoneEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " done serving by "
-                + this.getServer().get().toString();
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + 
+            " done serving by " + this.getServer().get().toString();
     }
 }

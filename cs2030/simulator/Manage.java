@@ -10,23 +10,29 @@ import java.util.Optional;
  */
 public class Manage {
 
-    /**
-     * Runs the simulation and prints the necessary output.
+    /** Runs the simulation and prints the necessary output.
      * 
-     * @param numOfServers total number of servers
-     * @param customerArrivalTimes timings each customer arrives
+     * @param rngSeed the seed for the random obect
+     * @param numOfServers number of non-self-check servers
+     * @param numOfSelfCheckServers number of self-check servers
+     * @param maxQueueLength maximum number of people in a queue
+     * @param numOfCustomers number of customer to simulate
+     * @param arrivalrate the rate of arrival of customers
+     * @param servicerate the rate of duration of service of servers
+     * @param restingRate the rate at whch servers rest after a service
+     * @param restingProbability the probability that a server rests after a service
+     * @param greedyProbability the probability that a custiner is greedy
      */
-
-    public static void run(int rngSeed, int numOfServers, int numOfSelfCheckServers, int maxQueueLength,
-            int numOfCustomers, double arrivalrate, double servicerate, double restingRate, 
-            double restingProbability, double greedyProbability) {
+    public static void run(int rngSeed, int numOfServers, int numOfSelfCheckServers, 
+            int maxQueueLength, int numOfCustomers, double arrivalrate, double servicerate, 
+            double restingRate, double restingProbability, double greedyProbability) {
 
         List<Customer> listOfCustomer = new ArrayList<>();
 
         RandomGenerator rng = new RandomGenerator(rngSeed, arrivalrate, servicerate, restingRate);
 
-        GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, maxQueueLength, 
-                rng, restingProbability);
+        GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, 
+            maxQueueLength,rng, restingProbability);
 
         double now = 0;
         while (numOfCustomers > 0) {
