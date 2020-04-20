@@ -17,8 +17,17 @@ public class Manage {
      * @param customerArrivalTimes timings each customer arrives
      */
 
-    public static void run(int rngSeed, int numOfServers, int numOfSelfCheckServers, int maxQueueLength,
-            int numOfCustomers, double arrivalrate, double servicerate, double restingRate, double restingProbability) {
+    public static void run(
+            int rngSeed, 
+            int numOfServers, 
+            int numOfSelfCheckServers, 
+            int maxQueueLength,
+            int numOfCustomers, 
+            double arrivalrate, 
+            double servicerate, 
+            double restingRate, 
+            double restingProbability,
+            double greedyProbability) {
 
         List<Customer> listOfCustomer = new ArrayList<>();
 

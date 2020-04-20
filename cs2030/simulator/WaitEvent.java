@@ -35,7 +35,6 @@ class WaitEvent extends Event {
 
         System.out.println(this);
         Event newEvent;
-        // update queue of server
         this.server.get().addCustomerToQueue();
 
         if (this.server.filter(x -> x.isSelfCheck()).isPresent()) {

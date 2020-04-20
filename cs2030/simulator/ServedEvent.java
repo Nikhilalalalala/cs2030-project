@@ -28,6 +28,7 @@ class ServedEvent extends Event {
             this.time = this.arrivalTime;
     }
 
+    // for creation of a Serve Event when the arrive time might be different compared to the time the customer is served
     ServedEvent(Customer customer, Optional<Server> server, double time, double arrivalTime, boolean wasWaiting) {
         super(customer, server);
         this.arrivalTime = arrivalTime;

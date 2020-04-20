@@ -1,7 +1,5 @@
 package cs2030.simulator;
 
-import java.util.PriorityQueue;
-
 class SelfCheckServer extends Server {
 
     private static int sharedQueueMax;

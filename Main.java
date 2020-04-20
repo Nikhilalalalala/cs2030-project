@@ -14,9 +14,10 @@ class Main {
         double servicerate = sc.nextDouble();
         double restingrate = sc.nextDouble();
         double restingProbability = sc.nextDouble();
+        double greedyProbability = sc.nextDouble();
 
         Manage.run(rngSeed, numOfServers, numOfSelfCheckServers, maxQueueLength, numOfCustomers, arrivalrate,
-                servicerate, restingrate, restingProbability);
+                servicerate, restingrate, restingProbability, greedyProbability);
 
         sc.close();
 
