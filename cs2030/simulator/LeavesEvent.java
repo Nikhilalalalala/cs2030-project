@@ -34,6 +34,6 @@ class LeavesEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " leaves";
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " leaves";
     }
 }

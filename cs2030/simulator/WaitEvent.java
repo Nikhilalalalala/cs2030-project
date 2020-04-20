@@ -49,7 +49,7 @@ class WaitEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " waits to be served by "
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " waits to be served by "
                 + this.getServer().get().toString();
     }
 

@@ -11,14 +11,6 @@ class SelfCheckServer extends Server {
         numOfPeopleInQueue = 0;
     }
 
-    // public static void addToCommonQueue(SelfCheckServer s) {
-    // if (queue == null) queue = new PriorityQueue<>();
-    // SelfCheckServer.queue.add(s);
-    // }
-    // public static Server getEarliest() {
-    // return queue.poll();
-    // }
-
     @Override
     public int compareTo(Server s) {
         double difference = this.getNextServiceTime() - s.getNextServiceTime();
@@ -53,6 +45,11 @@ class SelfCheckServer extends Server {
     @Override
     public void removeCustomerFromQueue() {
         numOfPeopleInSharedQueue--;
+    }
+
+    @Override
+    public int getNumOfPeopleInQueue() {
+        return SelfCheckServer.numOfPeopleInSharedQueue;
     }
 
 }

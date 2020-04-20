@@ -38,7 +38,11 @@ public class Manage {
 
         double now = 0;
         while (numOfCustomers > 0) {
-            listOfCustomer.add(new Customer(now));
+            if (rng.genCustomerType() < greedyProbability) {
+                listOfCustomer.add(new GreedyCustomer(now));
+            } else {
+                listOfCustomer.add(new Customer(now));
+            }
             now = now + rng.genInterArrivalTime();
             numOfCustomers--;
         }

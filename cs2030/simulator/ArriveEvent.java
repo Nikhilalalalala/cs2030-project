@@ -38,7 +38,14 @@ public class ArriveEvent extends Event {
             newEvent = new ServedEvent(this.getCustomerInvolved(), server, arrivalTime, false);
         } else {
             // find server for customer to wait at
-            Optional<Server> waitAt = group.findNextAvailableServerToWait();
+            Optional<Server> waitAt;
+            if (customerInvolved.isGreedy()) {
+                waitAt = group.findShortestQueueServer();
+            } else {
+                waitAt = group.findNextAvailableServerToWait();
+            }
+
+            //allocate the next event
             if (waitAt.isPresent()) {
                 newEvent = new WaitEvent(this.getCustomerInvolved(), waitAt, arrivalTime);
             } else {
@@ -51,7 +58,7 @@ public class ArriveEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " arrives";
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " arrives";
     }
 
 }

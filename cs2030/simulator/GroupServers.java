@@ -92,6 +92,18 @@ public class GroupServers {
         return Optional.of(earliest);
     }
 
+    public Optional<Server> findShortestQueueServer() {
+        Server curr = groupOfServers.get(0);
+        for (Server server : this.groupOfServers) {
+            if (server.getNumOfPeopleInQueue() < curr.getNumOfPeopleInQueue()) {
+                curr = server;
+            }
+        }
+
+        if (curr.canWait()) return Optional.of(curr);
+        else return Optional.empty();
+    }
+
     /**
      * Increments the number of customers left
      */

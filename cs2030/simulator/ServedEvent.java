@@ -78,7 +78,7 @@ class ServedEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved().getID() + " served by "
+        return String.format("%.3f", this.time) + " " + this.getCustomerInvolved() + " served by "
                 + this.getServer().get().toString();
     }
 

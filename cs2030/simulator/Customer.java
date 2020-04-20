@@ -5,9 +5,9 @@ package cs2030.simulator;
  * 
  */
 public class Customer implements Comparable<Customer> {
-    private final int customerID;
-    private static int numOfCustomers = 0;
-    private final double arrivalTime;
+    protected final int customerID;
+    protected static int numOfCustomers = 0;
+    protected final double arrivalTime;
 
     /**
      * Creates a customer with a unique ID and the time of arrival
@@ -52,7 +52,10 @@ public class Customer implements Comparable<Customer> {
 
     @Override
     public String toString() {
-        return this.customerID + " " + String.format("%.3f", this.arrivalTime);
+        return String.valueOf(customerID);
     }
 
+    public boolean isGreedy() {
+        return false;
+    }
 }

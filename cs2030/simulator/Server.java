@@ -91,4 +91,8 @@ class Server implements Comparable<Server> {
     public boolean isSelfCheck() {
         return false;
     }
+
+    public int getNumOfPeopleInQueue() {
+        return numOfPeopleInQueue;
+    }
 }
