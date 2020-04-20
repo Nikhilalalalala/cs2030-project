@@ -16,6 +16,8 @@ public class GroupServers {
     private static double totalWaitingTime;
     private RandomGenerator randomGenerator;
     private double restingProbability;
+    private int numOfHumanServers;
+    private int numOfSelfCheckServers;
 
     /**
      * Constructor of GroupServers where a group of servers is being modelled
@@ -30,12 +32,20 @@ public class GroupServers {
      * = group; }
      */
 
-    public GroupServers(int numOfServers, int maxQueueInServer, RandomGenerator rng, double restingProbability) {
+    GroupServers(int numOfServers, int numOfSelfCheckServers, int maxQueueInServer, RandomGenerator rng,
+            double restingProbability) {
         List<Server> group = new ArrayList<>(numOfServers);
         IntStream.range(0, numOfServers).forEach(id -> {
             Server creation = new Server(maxQueueInServer);
             group.add(creation);
         });
+        IntStream.range(0, numOfSelfCheckServers).forEach(id -> {
+            SelfCheckServer creation = new SelfCheckServer(maxQueueInServer);
+            // SelfCheckServer.addToCommonQueue(creation);
+            group.add(creation);
+        });
+        this.numOfHumanServers = numOfServers;
+        this.numOfSelfCheckServers = numOfSelfCheckServers;
         this.groupOfServers = group;
         this.randomGenerator = rng;
         this.restingProbability = restingProbability;
@@ -64,12 +74,22 @@ public class GroupServers {
      * @return the server with no waiting customer if there is
      */
     public Optional<Server> findNextAvailableServerToWait() {
-        for (Server server : groupOfServers) {
+        for (Server server : this.groupOfServers) {
             if (server.canWait()) {
                 return Optional.of(server);
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<Server> findEarliestSelfCheckServer(Server curr) {
+        Server earliest = curr;
+        for (int i = numOfHumanServers; i < groupOfServers.size(); i++) {
+            if (groupOfServers.get(i).getNextServiceTime() < earliest.getNextServiceTime()) {
+                earliest = groupOfServers.get(i);
+            }
+        }
+        return Optional.of(earliest);
     }
 
     /**
@@ -126,7 +146,9 @@ public class GroupServers {
      * @return average waiting time for customers who have been served
      */
     public static double getAverageWaitingTime() {
-        if (GroupServers.getTotalWaitingTime() == 0 || GroupServers.getTotalServed() == 0) return 0;
-        else return GroupServers.getTotalWaitingTime() / GroupServers.getTotalServed();
+        if (GroupServers.getTotalWaitingTime() == 0 || GroupServers.getTotalServed() == 0)
+            return 0;
+        else
+            return GroupServers.getTotalWaitingTime() / GroupServers.getTotalServed();
     }
 }

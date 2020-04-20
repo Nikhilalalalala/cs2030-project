@@ -19,7 +19,7 @@ class DoneEvent extends Event {
     DoneEvent(Customer customer, Optional<Server> server, double time) {
         super(customer, server);
         this.time = time;
-        this.isDiscarded = false; //no DoneEvents are ever discarded
+        this.isDiscarded = false; // no DoneEvents are ever discarded
     }
 
     /**
@@ -30,13 +30,12 @@ class DoneEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
-        
-        System.out.println(this);
-        
-        GroupServers.addTotalServed();
 
-        //determining if the server needs rest
-        if (group.deservesRest()) {
+        System.out.println(this);
+
+        GroupServers.addTotalServed();
+        // determining if the server needs rest
+        if (!server.get().isSelfCheck() && group.deservesRest()) {
             double restingDuration = group.createRestingDuration();
             server.ifPresent(x -> x.setNextServiceTime(restingDuration));
         }

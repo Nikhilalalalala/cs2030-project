@@ -32,13 +32,19 @@ class WaitEvent extends Event {
      */
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
-    
+
         System.out.println(this);
-
+        Event newEvent;
         // update queue of server
-        this.getServer().get().addCustomerToQueue();
+        this.server.get().addCustomerToQueue();
 
-        Event newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, true);
+        if (this.server.filter(x -> x.isSelfCheck()).isPresent()) {
+            Optional<Server> earliestServer = group.findEarliestSelfCheckServer(this.server.get());
+            newEvent = new ServedEvent(this.getCustomerInvolved(), earliestServer, this.time, true);
+        } else {
+            newEvent = new ServedEvent(this.getCustomerInvolved(), this.getServer(), this.time, true);
+        }
+
         return Optional.of(newEvent);
     }
 

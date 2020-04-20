@@ -6,11 +6,11 @@ package cs2030.simulator;
  */
 class Server implements Comparable<Server> {
 
-    private final int ServerID;
+    protected final int serverID;
     private static int countOfServers;
-    private double nextServiceTime;
+    protected double nextServiceTime;
 
-    public int maxQueueCapacity, numOfPeopleInQueue;
+    protected int maxQueueCapacity, numOfPeopleInQueue;
 
     /**
      * A Server has a unique ID and only 1 waiting customer atmost at any given time
@@ -18,10 +18,14 @@ class Server implements Comparable<Server> {
      */
     Server(int m) {
         Server.countOfServers++;
-        this.ServerID = Server.countOfServers;
+        this.serverID = Server.countOfServers;
         this.nextServiceTime = 0;
         this.numOfPeopleInQueue = 0;
         this.maxQueueCapacity = m;
+    }
+
+    Server() {
+        this.serverID = 0; // invalid, never to be used
     }
 
     /**
@@ -61,15 +65,18 @@ class Server implements Comparable<Server> {
     }
 
     public void addCustomerToQueue() {
+        // System.out.println("added cust to q of " + this);
         this.numOfPeopleInQueue++;
     }
 
     public void removeCustomerFromQueue() {
         this.numOfPeopleInQueue--;
+        // assert numOfPeopleInQueue > 0 : "huhhh";
+        // if (numOfPeopleInQueue < 0) numOfPeopleInQueue = 0;
     }
 
     public int getServerID() {
-        return this.ServerID;
+        return this.serverID;
     }
 
     public double getNextServiceTime() {
@@ -78,6 +85,10 @@ class Server implements Comparable<Server> {
 
     @Override
     public String toString() {
-        return "server " + this.ServerID;
+        return "server " + this.serverID;
+    }
+
+    public boolean isSelfCheck() {
+        return false;
     }
 }

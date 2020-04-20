@@ -9,9 +9,7 @@ import java.util.Optional;
 public abstract class Event implements Comparable<Event> {
     protected Customer customerInvolved;
     protected Optional<Server> server;
-    protected int eventState;
     protected double time;
-
     protected boolean isDiscarded;
 
     public static final double DURATION = 1.0;

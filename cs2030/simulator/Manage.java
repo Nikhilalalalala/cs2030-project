@@ -17,14 +17,15 @@ public class Manage {
      * @param customerArrivalTimes timings each customer arrives
      */
 
-    public static void run(int rngSeed, int numOfServers, int maxQueueLength, int numOfCustomers, double arrivalrate,
-            double servicerate, double restingRate, double restingProbability) {
+    public static void run(int rngSeed, int numOfServers, int numOfSelfCheckServers, int maxQueueLength,
+            int numOfCustomers, double arrivalrate, double servicerate, double restingRate, double restingProbability) {
 
         List<Customer> listOfCustomer = new ArrayList<>();
 
         RandomGenerator rng = new RandomGenerator(rngSeed, arrivalrate, servicerate, restingRate);
 
-        GroupServers groupServers = new GroupServers(numOfServers, maxQueueLength, rng, restingProbability);
+        GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, maxQueueLength, rng,
+                restingProbability);
 
         double now = 0;
         while (numOfCustomers > 0) {

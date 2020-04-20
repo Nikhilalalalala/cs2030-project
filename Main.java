@@ -7,6 +7,7 @@ class Main {
         Scanner sc = new Scanner(System.in);
         int rngSeed = sc.nextInt();
         int numOfServers = sc.nextInt();
+        int numOfSelfCheckServers = sc.nextInt();
         int maxQueueLength = sc.nextInt();
         int numOfCustomers = sc.nextInt();
         double arrivalrate = sc.nextDouble();
@@ -14,7 +15,8 @@ class Main {
         double restingrate = sc.nextDouble();
         double restingProbability = sc.nextDouble();
 
-        Manage.run(rngSeed, numOfServers, maxQueueLength, numOfCustomers, arrivalrate, servicerate, restingrate, restingProbability);
+        Manage.run(rngSeed, numOfServers, numOfSelfCheckServers, maxQueueLength, numOfCustomers, arrivalrate,
+                servicerate, restingrate, restingProbability);
 
         sc.close();
 
