@@ -30,7 +30,7 @@ class DoneEvent extends Event {
 
         System.out.println(this);
 
-        GroupServers.addTotalServed();
+        Statistics.addTotalServed();
         // determining if the server needs rest
         if (!server.get().isSelfCheck() && group.deservesRest()) {
             double restingDuration = group.createRestingDuration();

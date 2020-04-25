@@ -42,7 +42,7 @@ class ServedEvent extends Event {
      */
     ServedEvent(Customer customer, Optional<Server> server, double time, double arrivalTime, 
         boolean wasWaiting) {
-
+        
         super(customer, server);
         this.arrivalTime = arrivalTime;
         this.wasWaiting = wasWaiting;
@@ -83,7 +83,7 @@ class ServedEvent extends Event {
 
             this.server.get().removeCustomerFromQueue();
             double waitingTimeIncurred = this.time - this.arrivalTime;
-            GroupServers.addTotalWaitingTime(waitingTimeIncurred);
+            Statistics.addTotalWaitingTime(waitingTimeIncurred);
         }
 
         double timeDone = this.time + group.createServiceDuration();

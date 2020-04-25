@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.Optional;
 
-/** This class manages the behaviour of the entire collection of servers available.
+/** This class manages the arragement of the entire collection of servers available.
  * 
  */
 public class GroupServers {
     private List<Server> groupOfServers;
-    private static int totalLeaves;
-    private static int totalServed;
-    private static double totalWaitingTime;
     private RandomGenerator randomGenerator;
     private double restingProbability;
     private int numOfHumanServers;
@@ -110,16 +107,6 @@ public class GroupServers {
         }
     }
 
-    /** Increments the number of customers left.
-     */
-    public static void addTotalLeaves() {
-        GroupServers.totalLeaves++;
-    }
-
-    public static int getTotalLeaves() {
-        return GroupServers.totalLeaves;
-    }
-
     /** Uses the random generator to create a service duration for the server.
      * 
      * @return double value representing the duration of service
@@ -144,37 +131,4 @@ public class GroupServers {
         return this.randomGenerator.genRestPeriod();
     }
 
-    /** Increments the number of customers served.
-     */
-    public static void addTotalServed() {
-        GroupServers.totalServed++;
-    }
-
-    public static int getTotalServed() {
-        return GroupServers.totalServed;
-    }
-
-    /** Increments total waiting time accumulated by the group of servers by the time supplied.
-     * 
-     * @param time the additional waiting time incurred
-     */
-    public static void addTotalWaitingTime(double time) {
-        GroupServers.totalWaitingTime += time;
-    }
-
-    public static double getTotalWaitingTime() {
-        return GroupServers.totalWaitingTime;
-    }
-
-    /** Gets the average waiting time for customers who have been served.
-     * 
-     * @return average waiting time for customers who have been served
-     */
-    public static double getAverageWaitingTime() {
-        if (GroupServers.getTotalWaitingTime() == 0 || GroupServers.getTotalServed() == 0) {
-            return 0;
-        } else {
-            return GroupServers.getTotalWaitingTime() / GroupServers.getTotalServed();
-        }
-    }
 }

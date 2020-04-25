@@ -26,7 +26,7 @@ class LeavesEvent extends Event {
     @Override
     public Optional<Event> happenEvent(GroupServers group) {
         System.out.println(this);
-        GroupServers.addTotalLeaves();
+        Statistics.addTotalLeaves();
         return Optional.empty();
     }
 

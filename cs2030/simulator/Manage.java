@@ -34,6 +34,8 @@ public class Manage {
         GroupServers groupServers = new GroupServers(numOfServers, numOfSelfCheckServers, 
             maxQueueLength,rng, restingProbability);
 
+        // Statistics statistics = new Statistics();
+
         double now = 0;
         while (numOfCustomers > 0) {
 
@@ -61,7 +63,7 @@ public class Manage {
 
         }
 
-        System.out.println("[" + String.format("%.3f", GroupServers.getAverageWaitingTime()) + " "
-                + GroupServers.getTotalServed() + " " + GroupServers.getTotalLeaves() + "]");
+        System.out.println("[" + String.format("%.3f", Statistics.getAverageWaitingTime()) + " "
+                + Statistics.getTotalServed() + " " + Statistics.getTotalLeaves() + "]");
     }
 }

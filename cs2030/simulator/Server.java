@@ -2,7 +2,7 @@ package cs2030.simulator;
 
 /** This Server class aids in serving of customers as the customers arrive in their order.
  */
-class Server implements Comparable<Server> {
+class Server {
 
     protected final int serverID;
     private static int countOfServers;
@@ -38,20 +38,6 @@ class Server implements Comparable<Server> {
      */
     public boolean canServe(double time) {
         return time >= this.nextServiceTime;
-    }
-
-    @Override
-    public int compareTo(Server s) {
-        double difference = this.getNextServiceTime() - s.getNextServiceTime();
-        if (difference == 0) {
-            return this.getServerID() - s.getServerID();
-        } else {
-            if (difference > 0) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
     }
 
     /** Returns true if there the maximum queue capacity has not been reached.
