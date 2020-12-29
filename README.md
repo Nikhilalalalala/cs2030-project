@@ -1,4 +1,4 @@
-# cs2030project
+# cs2030-project
 Discrete Event Simulator
 
 <p> Using OOP Principles, come up with a model to illustrate the behaviour of Customers and Servers in
